@@ -14,6 +14,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Verify version matches tag
+        run: |
+          TAG_VERSION="${GITHUB_REF#refs/tags/v}"
+          FILE_VERSION=$(sed -n 's/.*__version__ *= *"\([^"]*\)".*/\1/p' netbox_render/version.py)
+          echo "Tag version:  ${TAG_VERSION}"
+          echo "File version: ${FILE_VERSION}"
+          if [ "$TAG_VERSION" != "$FILE_VERSION" ]; then
+            echo "::error::Version mismatch: tag says ${TAG_VERSION} but version.py says ${FILE_VERSION}"
+            echo "Bump netbox_render/version.py to ${TAG_VERSION} before tagging."
+            exit 1
+          fi
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -40,6 +51,8 @@ jobs:
           path: dist/
       - name: Publish to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          skip-existing: true
 
   release:
     needs: build
