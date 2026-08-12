@@ -37,31 +37,52 @@ Bays sort alphabetically by name — there's no numeric position field in NetBox
 
 | NetBox | Plugin | Status |
 |--------|--------|--------|
-| 4.6.x  | 0.2.1  | Tested |
+| 4.6.0 - 4.6.5  | 0.2.1  | Tested |
 
 
 ## Installation
+ 
+1. Add netbox-render to local_requirements.txt
+    ```bash
+    echo "netbox-render" >> local_requirements.txt
+    ```
 
-```bash
-pip install netbox-render
-```
+2. Install Plugin
+    ```bash
+    pip install netbox-render
+    ```
 
-Add to `configuration.py`:
+3. Add to `configuration.py`:
+    ```python
+    PLUGINS = ['netbox_render']
+    ```
 
-```python
-PLUGINS = ['netbox_render']
-```
+4. Restart NetBox:
+    ```bash
+    sudo systemctl restart netbox netbox-rq
+    ```
 
-Restart NetBox:
+## For development: 
 
-```bash
-sudo systemctl restart netbox netbox-rq
-```
+1. Local install
 
-For development: `pip install -e .`
+    ```bash
+    pip install -e .
+    ```
 
 ## Configuration
 
+#### Auto-calculated layout rendering
+```python
+PLUGINS_CONFIG = {
+    'netbox_render': {
+        'enable_images': True,       # default: False
+        'layouts': {},               # default: {} (auto-calculate) 
+    },
+}
+```
+
+#### Custom device-slug defined layout rendering
 ```python
 PLUGINS_CONFIG = {
     'netbox_render': {
