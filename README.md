@@ -15,6 +15,7 @@ I patched `RackElevationSVG._draw_device` so each bay gets its own section showi
 - Bay index (1, 2, 3, ...) sorted by bay name
 - Child device name with text wrapping for long names, or "(empty)"
 - Role color on the front face (rear renders grey, matching stock behavior)
+- If you Device tpyes have front and/or rear images attached, it will render images instead of color
 - Clickable link to the child device page
 - Optional device type images with label overlay (`enable_images`)
 - Auto grid layout for dense shelves (multiple bays arranged in columns)
@@ -23,10 +24,10 @@ Devices without bays are untouched.
 
 ### Before and after
 
-| Without plugin | With plugin |
-|:-:|:-:|
-| ![Stock NetBox elevation](https://raw.githubusercontent.com/paragm/netbox-render/main/docs/images/elevation-without-plugin.png) | ![With netbox-render](https://raw.githubusercontent.com/paragm/netbox-render/main/docs/images/elevation-with-plugin.png) |
-| Single opaque block | Subdivided with bay labels and role colors |
+| Without plugin - Front| Without plugin - Rear| With plugin - Front|With plugin - Rear|
+|:-:|:-:|:-:|:-:|
+| ![Stock NetBox elevation](https://raw.githubusercontent.com/paragm/netbox-render/main/docs/images/elevation-without-plugin-front.png) | ![With netbox-render](https://raw.githubusercontent.com/paragm/netbox-render/main/docs/images/elevation-without-plugin-rear.png) | ![With netbox-render](https://raw.githubusercontent.com/paragm/netbox-render/main/docs/images/elevation-with-plugin-front.png) | ![With netbox-render](https://raw.githubusercontent.com/paragm/netbox-render/main/docs/images/elevation-with-plugin-rear.png) |
+| Single opaque block | Single opaque block | Subdivided with bay labels and role colors |Subdivided with bay labels and role colors |
 
 ### Bay ordering
 
@@ -38,7 +39,6 @@ Bays sort alphabetically by name — there's no numeric position field in NetBox
 |--------|--------|--------|
 | 4.6.x  | 0.2.1  | Tested |
 
-Startup checks verify the patched method signature hasn't changed. If it has, the plugin raises a `RuntimeError` instead of loading.
 
 ## Installation
 
