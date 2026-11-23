@@ -11,7 +11,7 @@ class NetBoxRenderConfig(PluginConfig):
     author = 'Parag Mehta'
     author_email = 'pmehta@pmehta.com'
     min_version = '4.6.0'
-    max_version = '4.6.99'
+    max_version = '4.7.99'
     default_settings = {
         'enable_images': False,
         'layouts': {},
